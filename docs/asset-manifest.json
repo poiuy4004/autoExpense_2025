@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/autoExpenses_2025/static/css/main.45979e77.css",
-    "main.js": "/autoExpenses_2025/static/js/main.322023da.js",
-    "index.html": "/autoExpenses_2025/index.html",
-    "main.45979e77.css.map": "/autoExpenses_2025/static/css/main.45979e77.css.map",
-    "main.322023da.js.map": "/autoExpenses_2025/static/js/main.322023da.js.map"
+    "main.css": "/autoExpense_2025/static/css/main.45979e77.css",
+    "main.js": "/autoExpense_2025/static/js/main.322023da.js",
+    "index.html": "/autoExpense_2025/index.html",
+    "main.45979e77.css.map": "/autoExpense_2025/static/css/main.45979e77.css.map",
+    "main.322023da.js.map": "/autoExpense_2025/static/js/main.322023da.js.map"
   },
   "entrypoints": [
     "static/css/main.45979e77.css",
