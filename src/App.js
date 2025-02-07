@@ -1,6 +1,17 @@
 import { useEffect, useState } from "react";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 import "./App.css";
+
 function App() {
+  const driverObj = driver({
+    showProgress: true,
+    steps: [
+      {element: ".average", popover: {title: "평균인원을 입력하세요.", description: "평균 인원에 따라 1회 당 운영비가 수정됩니다."}},
+      {element: ".round", popover: {title: "진행회차를 입력하세요.", description: "진행한 회차에 따라 총 집행금이 수정됩니다."}},
+    ]
+  });
+
   const [offlineValue, setOfflineValue] = useState({
     cap: 0,
     hope: 0,
@@ -127,65 +138,66 @@ function App() {
   useEffect(()=>{
     setLastValue(offlineTotal.cap+offlineTotal.hope+offlineTotal["4u"]+offlineTotal.flare+offlineTotal["2h"]+offlineTotal["3h"]+onlineTotal.cap+onlineTotal.hope+onlineTotal["4u"]+onlineTotal.flare+onlineTotal["2h"]+onlineTotal["3h"])
   },[offlineTotal, onlineTotal])
+  useEffect(()=>driverObj.drive(),[])
   return (
     <main>
       <h1>최종 집행비 : {lastValue}</h1>
       <table border={1}>
         <tr>
-          <td>대면</td><td>평균인원</td><td>1회 인건비</td><td>1회 운영비</td><td>1회 집행비</td><td>회차</td><td>집행비</td>
+          <td>대면</td><td className="average">평균인원</td><td>1회 인건비</td><td>1회 운영비</td><td>1회 집행비</td><td className="round">회차</td><td>집행비</td>
         </tr>
         <tr>
           <td>CAP@</td>
-          <td><input type="number" value={offlineValue.cap} onChange={e=>setOfflineValue({...offlineValue, cap: e.target.value})} /></td>
+          <td className="average"><input type="number" value={offlineValue.cap} onChange={e=>setOfflineValue({...offlineValue, cap: e.target.value})} /></td>
           <td>{personExpensesObject.offline.cap}</td>
           <td>{offerOfflineExpensesObject.cap}</td>
           <td>{personExpensesObject.offline.cap+offerOfflineExpensesObject.cap}</td>
-          <td><input type="number" value={offlineRound.cap} onChange={e=>setOfflineRound({...offlineRound, cap: e.target.value})} /></td>
+          <td className="round"><input type="number" value={offlineRound.cap} onChange={e=>setOfflineRound({...offlineRound, cap: e.target.value})} /></td>
           <td>{offlineTotal.cap}</td>
         </tr>
         <tr>
           <td>취업희망</td>
-          <td><input type="number" value={offlineValue.hope} onChange={e=>setOfflineValue({...offlineValue, hope: e.target.value})} /></td>
+          <td className="average"><input type="number" value={offlineValue.hope} onChange={e=>setOfflineValue({...offlineValue, hope: e.target.value})} /></td>
           <td>{personExpensesObject.offline.hope}</td>
           <td>{offerOfflineExpensesObject.hope}</td>
           <td>{personExpensesObject.offline.hope+offerOfflineExpensesObject.hope}</td>
-          <td><input type="number" value={offlineRound.hope} onChange={e=>setOfflineRound({...offlineRound, hope: e.target.value})} /></td>
+          <td className="round"><input type="number" value={offlineRound.hope} onChange={e=>setOfflineRound({...offlineRound, hope: e.target.value})} /></td>
           <td>{offlineTotal.hope}</td>
         </tr>
         <tr>
           <td>4U</td>
-          <td><input type="number" value={offlineValue["4u"]} onChange={e=>setOfflineValue({...offlineValue, "4u": e.target.value})} /></td>
+          <td className="average"><input type="number" value={offlineValue["4u"]} onChange={e=>setOfflineValue({...offlineValue, "4u": e.target.value})} /></td>
           <td>{personExpensesObject.offline["4u"]}</td>
           <td>{offerOfflineExpensesObject["4u"]}</td>
           <td>{personExpensesObject.offline["4u"]+offerOfflineExpensesObject["4u"]}</td>
-          <td><input type="number" value={offlineRound["4u"]} onChange={e=>setOfflineRound({...offlineRound, "4u": e.target.value})} /></td>
+          <td className="round"><input type="number" value={offlineRound["4u"]} onChange={e=>setOfflineRound({...offlineRound, "4u": e.target.value})} /></td>
           <td>{offlineTotal["4u"]}</td>
         </tr>
         <tr>
           <td>신호탄</td>
-          <td><input type="number" value={offlineValue.flare} onChange={e=>setOfflineValue({...offlineValue, flare: e.target.value})} /></td>
+          <td className="average"><input type="number" value={offlineValue.flare} onChange={e=>setOfflineValue({...offlineValue, flare: e.target.value})} /></td>
           <td>{personExpensesObject.offline.flare}</td>
           <td>{offerOfflineExpensesObject.flare}</td>
           <td>{personExpensesObject.offline.flare+offerOfflineExpensesObject.flare}</td>
-          <td><input type="number" value={offlineRound.flare} onChange={e=>setOfflineRound({...offlineRound, flare: e.target.value})} /></td>
+          <td className="round"><input type="number" value={offlineRound.flare} onChange={e=>setOfflineRound({...offlineRound, flare: e.target.value})} /></td>
           <td>{offlineTotal.flare}</td>
         </tr>
         <tr>
           <td>취업특강(2H)</td>
-          <td><input type="number" value={offlineValue["2h"]} onChange={e=>setOfflineValue({...offlineValue, "2h": e.target.value})} /></td>
+          <td className="average"><input type="number" value={offlineValue["2h"]} onChange={e=>setOfflineValue({...offlineValue, "2h": e.target.value})} /></td>
           <td>{personExpensesObject.offline["2h"]}</td>
           <td>{offerOfflineExpensesObject["2h"]}</td>
           <td>{personExpensesObject.offline["2h"]+offerOfflineExpensesObject["2h"]}</td>
-          <td><input type="number" value={offlineRound["2h"]} onChange={e=>setOfflineRound({...offlineRound, "2h": e.target.value})} /></td>
+          <td className="round"><input type="number" value={offlineRound["2h"]} onChange={e=>setOfflineRound({...offlineRound, "2h": e.target.value})} /></td>
           <td>{offlineTotal["2h"]}</td>
         </tr>
         <tr>
           <td>취업특강(3H)</td>
-          <td><input type="number" value={offlineValue["3h"]} onChange={e=>setOfflineValue({...offlineValue, "3h": e.target.value})} /></td>
+          <td className="average"><input type="number" value={offlineValue["3h"]} onChange={e=>setOfflineValue({...offlineValue, "3h": e.target.value})} /></td>
           <td>{personExpensesObject.offline["3h"]}</td>
           <td>{offerOfflineExpensesObject["3h"]}</td>
           <td>{personExpensesObject.offline["3h"]+offerOfflineExpensesObject["3h"]}</td>
-          <td><input type="number" value={offlineRound["3h"]} onChange={e=>setOfflineRound({...offlineRound, "3h": e.target.value})} /></td>
+          <td className="round"><input type="number" value={offlineRound["3h"]} onChange={e=>setOfflineRound({...offlineRound, "3h": e.target.value})} /></td>
           <td>{offlineTotal["3h"]}</td>
         </tr>
       </table>
@@ -195,56 +207,56 @@ function App() {
         </tr>
         <tr>
           <td>CAP@</td>
-          <td><input type="number" value={onlineValue.cap} onChange={e=>setOnlineValue({...onlineValue, cap: e.target.value})} /></td>
+          <td className="average"><input type="number" value={onlineValue.cap} onChange={e=>setOnlineValue({...onlineValue, cap: e.target.value})} /></td>
           <td>{personExpensesObject.online.cap}</td>
           <td>{offerOnlineExpensesObject.cap}</td>
           <td>{personExpensesObject.online.cap+offerOnlineExpensesObject.cap}</td>
-          <td><input type="number" value={onlineRound.cap} onChange={e=>setOnlineRound({...onlineRound, cap: e.target.value})} /></td>
+          <td className="round"><input type="number" value={onlineRound.cap} onChange={e=>setOnlineRound({...onlineRound, cap: e.target.value})} /></td>
           <td>{onlineTotal.cap}</td>
         </tr>
         <tr>
           <td>취업희망</td>
-          <td><input type="number" value={onlineValue.hope} onChange={e=>setOnlineValue({...onlineValue, hope: e.target.value})} /></td>
+          <td className="average"><input type="number" value={onlineValue.hope} onChange={e=>setOnlineValue({...onlineValue, hope: e.target.value})} /></td>
           <td>{personExpensesObject.online.hope}</td>
           <td>{offerOnlineExpensesObject.hope}</td>
           <td>{personExpensesObject.online.hope+offerOnlineExpensesObject.hope}</td>
-          <td><input type="number" value={onlineRound.hope} onChange={e=>setOnlineRound({...onlineRound, hope: e.target.value})} /></td>
+          <td className="round"><input type="number" value={onlineRound.hope} onChange={e=>setOnlineRound({...onlineRound, hope: e.target.value})} /></td>
           <td>{onlineTotal.hope}</td>
         </tr>
         <tr>
           <td>4U</td>
-          <td><input type="number" value={onlineValue["4u"]} onChange={e=>setOnlineValue({...onlineValue, "4u": e.target.value})} /></td>
+          <td className="average"><input type="number" value={onlineValue["4u"]} onChange={e=>setOnlineValue({...onlineValue, "4u": e.target.value})} /></td>
           <td>{personExpensesObject.online["4u"]}</td>
           <td>{offerOnlineExpensesObject["4u"]}</td>
           <td>{personExpensesObject.online["4u"]+offerOnlineExpensesObject["4u"]}</td>
-          <td><input type="number" value={onlineRound["4u"]} onChange={e=>setOnlineRound({...onlineRound, "4u": e.target.value})} /></td>
+          <td className="round"><input type="number" value={onlineRound["4u"]} onChange={e=>setOnlineRound({...onlineRound, "4u": e.target.value})} /></td>
           <td>{onlineTotal["4u"]}</td>
         </tr>
         <tr>
           <td>신호탄</td>
-          <td><input type="number" value={onlineValue.flare} onChange={e=>setOnlineValue({...onlineValue, flare: e.target.value})} /></td>
+          <td className="average"><input type="number" value={onlineValue.flare} onChange={e=>setOnlineValue({...onlineValue, flare: e.target.value})} /></td>
           <td>{personExpensesObject.online.flare}</td>
           <td>{offerOnlineExpensesObject.flare}</td>
           <td>{personExpensesObject.online.flare+offerOnlineExpensesObject.flare}</td>
-          <td><input type="number" value={onlineRound.flare} onChange={e=>setOnlineRound({...onlineRound, flare: e.target.value})} /></td>
+          <td className="round"><input type="number" value={onlineRound.flare} onChange={e=>setOnlineRound({...onlineRound, flare: e.target.value})} /></td>
           <td>{onlineTotal.flare}</td>
         </tr>
         <tr>
           <td>취업특강(2H)</td>
-          <td><input type="number" value={onlineValue["2h"]} onChange={e=>setOnlineValue({...onlineValue, "2h": e.target.value})} /></td>
+          <td className="average"><input type="number" value={onlineValue["2h"]} onChange={e=>setOnlineValue({...onlineValue, "2h": e.target.value})} /></td>
           <td>{personExpensesObject.online["2h"]}</td>
           <td>{offerOnlineExpensesObject["2h"]}</td>
           <td>{personExpensesObject.online["2h"]+offerOnlineExpensesObject["2h"]}</td>
-          <td><input type="number" value={onlineRound["2h"]} onChange={e=>setOnlineRound({...onlineRound, "2h": e.target.value})} /></td>
+          <td className="round"><input type="number" value={onlineRound["2h"]} onChange={e=>setOnlineRound({...onlineRound, "2h": e.target.value})} /></td>
           <td>{onlineTotal["2h"]}</td>
         </tr>
         <tr>
           <td>취업특강(3H)</td>
-          <td><input type="number" value={onlineValue["3h"]} onChange={e=>setOnlineValue({...onlineValue, "3h": e.target.value})} /></td>
+          <td className="average"><input type="number" value={onlineValue["3h"]} onChange={e=>setOnlineValue({...onlineValue, "3h": e.target.value})} /></td>
           <td>{personExpensesObject.online["3h"]}</td>
           <td>{offerOnlineExpensesObject["3h"]}</td>
           <td>{personExpensesObject.online["3h"]+offerOnlineExpensesObject["3h"]}</td>
-          <td><input type="number" value={onlineRound["3h"]} onChange={e=>setOnlineRound({...onlineRound, "3h": e.target.value})} /></td>
+          <td className="round"><input type="number" value={onlineRound["3h"]} onChange={e=>setOnlineRound({...onlineRound, "3h": e.target.value})} /></td>
           <td>{onlineTotal["3h"]}</td>
         </tr>
       </table>
